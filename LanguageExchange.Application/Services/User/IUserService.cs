@@ -1,7 +1,7 @@
 ﻿using LanguageExchange.Application.Models;
 using LanguageExchange.Application.Models.User;
 
-namespace LanguageExchange.Application.User
+namespace LanguageExchange.Application.Services.User
 {
     public interface IUserService
     {
