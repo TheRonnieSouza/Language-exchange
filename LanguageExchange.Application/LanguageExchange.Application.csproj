@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LanguageExchange.Core\LanguageExchange.Core.csproj" />
+    <ProjectReference Include="..\LanguageExchange.Infrastructure\LanguageExchange.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
