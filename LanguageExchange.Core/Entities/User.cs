@@ -12,9 +12,11 @@ namespace LanguageExchange.Core.Entities
         public DateTime RegistrationDate { get; private set; }
         public PlanEnum? Subscription { get; private set; }
 
+        public bool IsActive { get; private set; }
+
         //TODO - Implementar métodos
         public void Authenticate() { }
         public void UpdateUser() { }
-
+        public void DeleteUser() { }
     }
 }
