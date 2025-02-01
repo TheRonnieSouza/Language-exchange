@@ -1,5 +1,5 @@
 ﻿using LanguageExchange.Application.Models.LanguagesModels;
-using LanguageExchange.Application.Services.Language;
+using LanguageExchange.Application.Services.LanguageServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanguageExchangeAPI.Controllers
