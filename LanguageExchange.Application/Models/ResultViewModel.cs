@@ -26,9 +26,9 @@
             Data = data;
         }
 
-        public T Data { get; private set; }
+        public T? Data { get; private set; }
 
-        public static ResultViewModel<T> Success(T data) => new(data);
+        public static ResultViewModel<T> Success(T type) => new(type);
 
         public static ResultViewModel<T> Error(string message) => new(default, false, message);
     }

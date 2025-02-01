@@ -1,7 +1,7 @@
 ﻿using LanguageExchange.Core.Entities;
 using LanguageExchange.Core.Enum;
 
-namespace LanguageExchange.Application.Models.Payment
+namespace LanguageExchange.Application.Models.PaymentModels
 {
     public class CancelPaymentInputModel
     {

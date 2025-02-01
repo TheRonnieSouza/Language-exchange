@@ -1,4 +1,4 @@
-﻿namespace LanguageExchange.Application.Models.User
+﻿namespace LanguageExchange.Application.Models.UserServices
 {
     public class UpdateUserInputModel
     {

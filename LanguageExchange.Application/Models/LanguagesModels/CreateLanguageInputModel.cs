@@ -8,7 +8,7 @@ namespace LanguageExchange.Application.Models.LanguagesModels
         {
             NameOfLanguage = nameOfLanguage;
         }
-        public  static string NameOfLanguage { get; set; }
-        public static Language ToEntity() => new Language(NameOfLanguage);
+        public  string NameOfLanguage { get; set; }
+        public  Language ToEntity() => new Language(NameOfLanguage);
     }
 }

@@ -9,7 +9,7 @@ namespace LanguageExchange.Application.Models.LanguagesModels
         {
             Languages.Add(language);
         }
-        public IList<string> Languages { get; set; }
+        public IList<string> Languages { get; set; } = new List<string>();
 
         public static GetAllLanguageViewModel FromEntity(Language language) => new(language.NameOfLanguage);
     }
