@@ -4,6 +4,7 @@
     {
         Active,
         Expired,
-        Cancelled
+        Cancelled,
+        Pending
     }
 }

@@ -4,7 +4,8 @@
     {
         Normal, 
         Plus, 
-        Super, 
+        Super,
+        Premium,
         Admin
     }
 }

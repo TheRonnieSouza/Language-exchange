@@ -2,9 +2,18 @@
 {
     public class Language
     {
+        public Language(string nameOfLanguage)
+        {
+            NameOfLanguage = nameOfLanguage;
+        }
         public int Id { get; private set; }
-        public List<string> NameOfLanguage { get; private set; } = new List<string>();
+        public string NameOfLanguage { get; private set; } 
 
-        public bool isActive { get; private set; }
+        public bool isActive { get; private set; } = true;
+
+        public void Disable()
+        {
+            isActive = false;
+        }
     }
 }
