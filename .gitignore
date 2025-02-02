@@ -396,3 +396,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/LanguageExchangeAPI/Properties/launchSettings.json
+/LanguageExchangeAPI/appsettings.json
+/LanguageExchangeAPI/appsettings.Development.json
+/LanguageExchangeAPI/LanguageExchangeAPI.http
