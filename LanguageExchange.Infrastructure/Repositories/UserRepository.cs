@@ -11,12 +11,13 @@ namespace LanguageExchange.Infrastructure.Repositories
         {
             _context = context;
         }
-        public async Task<int> AddUser(User user)
+        public async Task<Guid> AddUser(User user)
         {
             _context.Users.Add(user);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return user.Id;
         }
-        public async Task<bool> DeleteUser(int id)
+        public async Task<bool> DeleteUser(Guid id)
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null)
@@ -30,7 +31,7 @@ namespace LanguageExchange.Infrastructure.Repositories
 
             return  true;
         }
-        public async Task<User> GetUser(int id)
+        public async Task<User> GetUser(Guid id)
         {
             var result = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -40,11 +41,17 @@ namespace LanguageExchange.Infrastructure.Repositories
             }
             return result;
         }
-        public async Task<bool> UpdateUser(int id, User user)
+        public async Task<bool> UpdateUser(Guid id, User user)
         {
              _context.Users.Update(user);
             await _context.SaveChangesAsync();
             return true;
+        }
+        public async Task<Guid> UpdateUserPassword(User user)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+            return user.Id;
         }
     }
 }

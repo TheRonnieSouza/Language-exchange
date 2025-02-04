@@ -1,6 +1,6 @@
 ﻿using LanguageExchange.Core.Entities;
 
-namespace LanguageExchange.Infrastructure.Repositories
+namespace LanguageExchange.Core.RepositoriesInterfaces
 {
     public interface IPaymentRepository
     {
