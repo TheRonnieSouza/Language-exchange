@@ -7,7 +7,6 @@
             FullName = fullName;
             Email = email;
             PasswordHash = passwordHash;
-            IsActive = true;
         }
        
         public Guid Id { get; private set; } = new Guid();
@@ -25,16 +24,28 @@
         public ICollection<Notification> Notifications { get; private set; } = new List<Notification>();
 
         public ICollection<PaymentTransaction> PaymentTransactions { get; private set; } = new List<PaymentTransaction>();
-
-        //TODO - Implementar métodos
-        public void Authenticate() { }
-        public void UpdateUser() { }
-        public void DeleteUser() { IsActive = false; }
+                
+        public bool Authenticate(string currentPassword)
+        { 
+           if(PasswordHash == currentPassword)
+           {
+               return true;
+           } 
+           return false;
+        }
+        public void DeleteUser() 
+        { 
+            IsActive = false; 
+        }
 
         public void UpdateUser(string fullName, string email)
         {
            FullName = fullName;
             Email = email;
+        }
+        public void UpdatePassword(string newPassword)
+        {
+            PasswordHash = newPassword;
         }
     }
 }

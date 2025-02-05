@@ -2,6 +2,33 @@
 {
     public class UserAddress
     {
+        public UserAddress(Guid userId, string zipcode, string streetName, string houseNumber,
+                           string country, string state, string city,
+                           string neighborhood, string complement)
+        {
+            UserId = userId;
+            Zipcode = zipcode;
+            StreetName = streetName;
+            HouseNumber = houseNumber;
+            Country = country;
+            State = state;
+            City = city;
+            Neighborhood = neighborhood;
+            Complement = complement;
+        }
+        public UserAddress(string zipcode, string streetName, string houseNumber,
+                           string country, string state, string city,
+                           string neighborhood, string complement)
+        {
+            Zipcode = zipcode;
+            StreetName = streetName;
+            HouseNumber = houseNumber;
+            Country = country;
+            State = state;
+            City = city;
+            Neighborhood = neighborhood;
+            Complement = complement;
+        }
         public UserAddress() { }
         public Guid Id { get; private set; } = Guid.NewGuid();
         public Guid UserId { get; private set; }
