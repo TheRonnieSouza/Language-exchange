@@ -1,12 +1,11 @@
 ﻿using LanguageExchange.Application.Models.UserServices;
 using LanguageExchange.Application.Services.UserServices;
 using Microsoft.AspNetCore.Mvc;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace LanguageExchangeAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/users")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;        
@@ -23,28 +22,39 @@ namespace LanguageExchangeAPI.Controllers
             if (!result.IsSuccess)
                 return BadRequest(result.Message);
 
-            return CreatedAtAction(nameof(GetUser), new { id = result.Data }, $"Usuário {user.Name} criado com sucesso.");
+            return CreatedAtAction(nameof(GetUser), new { id = result.Data }, $"Usuário {user.FullName} criado com sucesso.");
+        }
+        [HttpPut("{id}/change-password")]
+        public async Task<IActionResult> ChangePassword(Guid id, ChangePasswordInputModel user)
+        {
+            var result = await _userService.ChangePassword(id, user);
+
+            if (!result.IsSuccess)
+                return BadRequest(result.Message);
+
+            return Ok($"Senha do usuário alterada com sucesso.");
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id,CreateUserInputModel user)
+        public async Task<IActionResult> UpdateUser(Guid id,CreateUserInputModel user)
         {
             var result = await _userService.UpdateUser(id, user);
 
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(Guid id)
         {
             var result = await _userService.DeleteUser(id);
 
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(int id)
+        public async Task<IActionResult> GetUser(Guid id)
         {
             var result = await _userService.GetUser(id);
 
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
+
     }
 }
