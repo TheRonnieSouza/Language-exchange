@@ -40,6 +40,7 @@
         public string City { get; private set; }
         public string Neighborhood { get; private set; } 
         public string Complement { get; private set; }
+        public bool IsActive { get; private set; } = true;
 
         public User User { get; private set; }
         public void UpdateAddress(string zipcode, string streetName, string houseNumber,
@@ -55,5 +56,6 @@
             Neighborhood = neighborhood;
             Complement = complement;
         }
+        public void DesactiveAddress() { IsActive = false; }
     }
 }
