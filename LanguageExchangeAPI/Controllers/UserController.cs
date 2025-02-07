@@ -24,6 +24,13 @@ namespace LanguageExchangeAPI.Controllers
 
             return CreatedAtAction(nameof(GetUser), new { id = result.Data }, $"Usuário {user.FullName} criado com sucesso.");
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUser(Guid id)
+        {
+            var result = await _userService.GetUser(id);
+
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
         [HttpPut("{id}/change-password")]
         public async Task<IActionResult> ChangePassword(Guid id, ChangePasswordInputModel user)
         {
@@ -48,13 +55,7 @@ namespace LanguageExchangeAPI.Controllers
 
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(Guid id)
-        {
-            var result = await _userService.GetUser(id);
-
-            return result.IsSuccess ? Ok(result) : BadRequest(result);
-        }
+       
 
     }
 }

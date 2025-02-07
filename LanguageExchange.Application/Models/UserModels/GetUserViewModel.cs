@@ -1,5 +1,4 @@
 ﻿using LanguageExchange.Core.Entities;
-using LanguageExchange.Core.Enum;
 
 namespace LanguageExchange.Application.Models.UserServices
 {
@@ -7,19 +6,15 @@ namespace LanguageExchange.Application.Models.UserServices
     {
         public string Name { get; set; }
         public string Email { get; set; }
-        public UserTypeEnum UserType { get;  set; }
-        public DateTime RegistrationDate { get;  set; }
-        public int IdSubscription { get;  set; }
+        public DateTime CreatedAt { get;  set; }
         public bool IsActive { get;  set; }
 
         public static GetUserViewModel FromEntity(User result)
             => new()
             {
-                Name = result.Name,
+                Name = result.FullName,
                 Email = result.Email,
-                UserType = result.UserType,
-                RegistrationDate = result.RegistrationDate,
-                IdSubscription = result.IdSubscription,
+                CreatedAt = result.CreatedAt,
                 IsActive = result.IsActive
             };
     }
