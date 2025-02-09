@@ -7,7 +7,7 @@ namespace LanguageExchange.Application.Services.SubscriptionPlanServices
     {
         Task<ResultViewModel<IList<SubscriptionPlanViewModel>>> GetAllPlans();
         Task<ResultViewModel<SubscriptionPlanViewModel>> GetPlanById(Guid id);
-        Task<ResultViewModel<int>> CreatePlan(CreateSubscriptionPlanInputModel model);
+        Task<ResultViewModel<Guid>> CreatePlan(CreateSubscriptionPlanInputModel model);
         Task<ResultViewModel<int>> UpdateSubscriptionPlan(Guid id, UpdateSubscriptionPlanInputModel model);
         Task<ResultViewModel<int>> DeleteSubscriptionPlan(Guid id);
     }

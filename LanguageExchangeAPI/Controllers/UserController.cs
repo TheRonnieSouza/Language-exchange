@@ -22,7 +22,7 @@ namespace LanguageExchangeAPI.Controllers
             if (!result.IsSuccess)
                 return BadRequest(result.Message);
 
-            return CreatedAtAction(nameof(GetUser), new { id = result.Data }, $"Usuário {user.FullName} criado com sucesso.");
+            return CreatedAtAction(nameof(GetUser), new { id = result.Data }, $"Usuário {user.FullName} criado com sucesso. Id: {result.Data} ");
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(Guid id)
@@ -39,7 +39,7 @@ namespace LanguageExchangeAPI.Controllers
             if (!result.IsSuccess)
                 return BadRequest(result.Message);
 
-            return Ok($"Senha do usuário alterada com sucesso.");
+            return Ok(result);
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(Guid id,CreateUserInputModel user)

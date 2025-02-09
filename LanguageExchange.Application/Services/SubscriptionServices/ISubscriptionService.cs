@@ -7,9 +7,9 @@ namespace LanguageExchange.Application.Services.SubscriptionServices
     {
         Task<ResultViewModel<SubscriptionViewModel>> GetCurrentSubscription(Guid userID);
         Task<ResultViewModel<IList<SubscriptionViewModel>>> GetHistorySubscription(Guid userID);
-        Task<ResultViewModel<int>> CreateSubscription(Guid userId, CreateSubscriptionInputModel model);
+        Task<ResultViewModel<Guid>> CreateSubscription(Guid userId, CreateSubscriptionInputModel model);
         Task<ResultViewModel<int>> UpdateSubscription(Guid userId, UpdateSubscriptionInputModel model);
         Task<ResultViewModel<int>> CancelSubscription(Guid userId);
-
+        Task<ResultViewModel> ActivateSubscription(Guid userId);
     }
 }

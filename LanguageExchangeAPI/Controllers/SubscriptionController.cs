@@ -1,11 +1,10 @@
 ﻿using LanguageExchange.Application.Models.SubscriptionModels;
-using LanguageExchange.Application.Models.SubscriptionPlanModels;
 using LanguageExchange.Application.Services.SubscriptionServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanguageExchangeAPI.Controllers
 {
-    [Route("api/users")]
+    [Route("api/users/subscription")]
     [ApiController]
     public class SubscriptionController : ControllerBase
     {
@@ -15,49 +14,58 @@ namespace LanguageExchangeAPI.Controllers
             _service = service;
         }
 
-        [HttpGet("{userId}/Subscription")]
+        [HttpGet("{userId}/current")]
         public async Task<IActionResult> GetCurrentSubscription(Guid userId)
         {
             var result = await _service.GetCurrentSubscription(userId);
 
-            if (result == null) 
-                return NotFound();
+            if (!result.IsSuccess)
+                return NotFound(result);
             return Ok(result);
         }
-        [HttpGet("{userId}/Subscription")]
+        [HttpGet("{userId}/history")]
         public async Task<IActionResult> GetHistorySubscription(Guid userId)
         {
             var result = await _service.GetHistorySubscription(userId);
 
-            if (result == null)
-                return NotFound();
+            if (!result.IsSuccess)
+                return NotFound(result);
             return Ok(result);
         }
-        [HttpPost("{userId}/Subscription")]
+        [HttpPost("{userId}")]
         public async Task<IActionResult> CreateSubscription(Guid userId, CreateSubscriptionInputModel model)
         {
             var result = await _service.CreateSubscription(userId, model);
 
-            if (result == null)
-                return NotFound();
-            return CreatedAtAction(nameof(GetCurrentSubscription), new {id = result.Data},result);
+            if (!result.IsSuccess)
+                return NotFound(result);
+            return CreatedAtAction(nameof(GetCurrentSubscription), new { userId = userId },result);
         }
-        [HttpPut("{userId}/Subscription")]
+        [HttpPut("{userId}")]
         public async Task<IActionResult> UpdateSubscription(Guid userId,UpdateSubscriptionInputModel model)
         {
             var result = await _service.UpdateSubscription(userId, model);
 
-            if (result == null)
-                return NotFound();
+            if (!result.IsSuccess)
+                return NotFound(result);
             return Ok(result);
         }
-        [HttpDelete("{userId}/Subscription")]
+        [HttpPut("{userId}/activate-subscription")]
+        public async Task<IActionResult> ActivateSubscription(Guid userId)
+        {
+            var result = await _service.ActivateSubscription(userId);
+
+            if (!result.IsSuccess)
+                return NotFound(result);
+            return Ok(result);
+        }
+        [HttpDelete("{userId}/cancel-subscription")]
         public async Task<IActionResult> CancelSubscription(Guid userId)
         {
             var result = await _service.CancelSubscription(userId);
 
-            if (result == null)
-                return NotFound();
+            if (!result.IsSuccess)
+                return NotFound(result);
             return Ok(result);
         }
     }

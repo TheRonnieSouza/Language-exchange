@@ -12,13 +12,13 @@ namespace LanguageExchange.Application.Services.SubscriptionPlanServices
             _repository = repository;
         }
 
-        public async Task<ResultViewModel<int>> CreatePlan(CreateSubscriptionPlanInputModel model)
+        public async Task<ResultViewModel<Guid>> CreatePlan(CreateSubscriptionPlanInputModel model)
         {
             var plan = model.ToEntity();
             var result = await _repository.CreateSubscriptionPlan(plan);
-            if (result > 0)
-                return ResultViewModel<int>.Error("Error to create subscription plan");
-            return ResultViewModel<int>.Success(result);
+            if (result == null)
+                return ResultViewModel<Guid>.Error("Error to create subscription plan");
+            return ResultViewModel<Guid>.Success(result);
         }
 
         public async Task<ResultViewModel<int>> DeleteSubscriptionPlan(Guid id)
@@ -62,7 +62,7 @@ namespace LanguageExchange.Application.Services.SubscriptionPlanServices
         {
             var UpdateModel = model.ToEntity();
             var result = await _repository.UpdateSubscriptionPlan(id, UpdateModel);
-            if (result > 0)
+            if (result == 0)
                 return ResultViewModel<int>.Error("Error to update subscription plans.");
 
             return ResultViewModel<int>.Success(result);

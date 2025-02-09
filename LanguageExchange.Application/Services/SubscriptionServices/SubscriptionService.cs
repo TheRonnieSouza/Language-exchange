@@ -11,6 +11,16 @@ namespace LanguageExchange.Application.Services.SubscriptionServices
         { 
             _repository = repository;
         }
+
+        public async Task<ResultViewModel> ActivateSubscription(Guid userId)
+        {
+            if(!await _repository.UserHasSubscription(userId))
+                  return ResultViewModel.Error("The user don't have a subscription.");
+
+            await _repository.ActivateSubscription(userId);               
+            return ResultViewModel.Success();
+        }
+
         public async Task<ResultViewModel<int>> CancelSubscription(Guid userId)
         {
             var result = await _repository.CancelSubscription( userId);
@@ -19,18 +29,18 @@ namespace LanguageExchange.Application.Services.SubscriptionServices
             return ResultViewModel<int>.Success(result);
         }
 
-        public async Task<ResultViewModel<int>> CreateSubscription(Guid userId, CreateSubscriptionInputModel model)
+        public async Task<ResultViewModel<Guid>> CreateSubscription(Guid userId, CreateSubscriptionInputModel model)
         {
             var activeSubscription = await _repository.GetCurrentSubscription(userId);
-            if (activeSubscription == null)
-                return ResultViewModel<int>.Error("The user alredy have a subscription.");
+            if (activeSubscription != null)
+                return ResultViewModel<Guid>.Error("The user alredy have a subscription.");
             
             var subscription = model.ToEntity();
 
             var result = await _repository.CreateSubscription(userId, subscription);
-            if (result > 0)
-                return ResultViewModel<int>.Error("Error to create subscription.");
-            return ResultViewModel<int>.Success(result);
+            if (result == null)
+                return ResultViewModel<Guid>.Error("Error to create subscription.");
+            return ResultViewModel<Guid>.Success(result);
         }
 
         public async Task<ResultViewModel<SubscriptionViewModel>> GetCurrentSubscription(Guid userId)

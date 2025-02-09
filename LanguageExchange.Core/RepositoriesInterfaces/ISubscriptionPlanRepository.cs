@@ -4,7 +4,7 @@ namespace LanguageExchange.Core.RepositoriesInterfaces
 {
     public  interface ISubscriptionPlanRepository
     {
-        Task<int> CreateSubscriptionPlan(SubscriptionPlan plan);
+        Task<Guid> CreateSubscriptionPlan(SubscriptionPlan plan);
         Task<int> DeleteSubscriptionPlan(Guid id);
         Task<IList<SubscriptionPlan>> GetAllPlans();
         Task<SubscriptionPlan> GetPlanById(Guid id);

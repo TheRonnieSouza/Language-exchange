@@ -5,6 +5,7 @@ namespace LanguageExchange.Application.Services.AdditionalUserInformationService
 {
     public interface IAdditionalUserInformationService
     {
+        Task<ResultViewModel<Guid>> CreateAdditionalInformation(Guid userId, CreateAdditionalUserInformationInputModel input);
         public Task<ResultViewModel<GetAdditionalInformationViewModel>> GetAdditionalInformation(Guid userId);
         public Task<ResultViewModel> UpdateAdditionalInformation(Guid userId, UpdateAdditionalUserInformationInputModel inputModel);
     }

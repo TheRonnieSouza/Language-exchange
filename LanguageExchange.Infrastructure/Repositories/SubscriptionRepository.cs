@@ -12,7 +12,7 @@ namespace LanguageExchange.Infrastructure.Repositories
         public SubscriptionRepository(LanguageExchangeDbContext context) 
         {
             _context = context;
-        }
+        }      
 
         public async Task<int> CancelSubscription(Guid userId)
         {
@@ -23,10 +23,11 @@ namespace LanguageExchange.Infrastructure.Repositories
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<int> CreateSubscription(Guid userId, Subscription subscription)
+        public async Task<Guid> CreateSubscription(Guid userId, Subscription subscription)
         {
              await _context.Subscriptions.AddAsync(subscription);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return subscription.Id;
         }
 
         public async Task<Subscription> GetCurrentSubscription(Guid userId)
@@ -49,6 +50,21 @@ namespace LanguageExchange.Infrastructure.Repositories
             subscription.Update(newSubscription.SubscriptionPlanId, newSubscription.StartDate, newSubscription.EndDate, newSubscription.IsRecurring, newSubscription.PaymentProviderSubscriptionId, newSubscription.Status);
             _context.Update(subscription);
             return await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> UserHasSubscription(Guid userId)
+        {
+            var result = await _context.Subscriptions.FirstOrDefaultAsync(s => s.UserId == userId
+                                                    && s.Status != StatusSubscriptionEnum.Active);
+            if(result == null)
+                return false;
+            return true;
+        }
+        public async Task ActivateSubscription(Guid userId)
+        {
+            var result = await _context.Subscriptions.FirstOrDefaultAsync(s => s.UserId == userId
+                                                    && s.Status != StatusSubscriptionEnum.Active);
+            result.ActivateSubscription();
         }
     }
 }

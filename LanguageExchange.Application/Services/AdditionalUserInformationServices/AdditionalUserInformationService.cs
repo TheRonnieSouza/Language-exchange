@@ -12,11 +12,26 @@ namespace LanguageExchange.Application.Services.AdditionalUserInformationService
         {
             _additionalUserInformationRepository = additionalUserInformationRepository;
         }
+
+        public async Task<ResultViewModel<Guid>> CreateAdditionalInformation(Guid userId, CreateAdditionalUserInformationInputModel input)
+        {
+            var addInformation = await _additionalUserInformationRepository.GetAdditionalInformation(userId);
+            if (addInformation != null)
+                return ResultViewModel<Guid>.Error($"Additional information already exist. Id {addInformation.Id}");
+
+            var entity = input.ToEntity(userId);
+            var result = await _additionalUserInformationRepository.CreateAdditionalInformation(entity);
+            if (result == null)
+                return ResultViewModel<Guid>.Error($"Error to create additional information, user: {userId}.");
+
+            return ResultViewModel<Guid>.Success(result);
+        }
+
         public async Task<ResultViewModel<GetAdditionalInformationViewModel>> GetAdditionalInformation(Guid userId)
         {
             var user = await _additionalUserInformationRepository.GetAdditionalInformation(userId);
             if(user == null)
-                return ResultViewModel<GetAdditionalInformationViewModel>.Error("User not found" );
+                return ResultViewModel<GetAdditionalInformationViewModel>.Error("User don't have additional information" );
 
             var model = GetAdditionalInformationViewModel.FromEntity(user);
 

@@ -10,20 +10,25 @@ namespace LanguageExchangeAPI.Controllers
     {
         private readonly ISubscriptionPlanService _service;
 
+        public SubscriptionPlanController (ISubscriptionPlanService service)
+        {
+            _service = service;
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAllSubscriptionPlans()
         {
             var result = await _service.GetAllPlans();
-            if(result == null) 
-                return NotFound();
+            if (!result.IsSuccess)
+                return NotFound(result);
             return Ok(result);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSubscriptionPlanById(Guid id)
         {
             var result = await _service.GetPlanById(id);
-            if (result == null)
-                return NotFound();
+            if (!result.IsSuccess)
+                return NotFound(result);
             return Ok(result);
 
         }
@@ -31,25 +36,26 @@ namespace LanguageExchangeAPI.Controllers
         public async Task<IActionResult> CreateSubscriptionPlan(CreateSubscriptionPlanInputModel model)
         {
             var result = await _service.CreatePlan(model);
-            if (result == null)
-                return BadRequest();
-            return CreatedAtAction(nameof(GetSubscriptionPlanById),new {id =result.Data},result);
+            if (!result.IsSuccess)
+                return BadRequest(result);
+            return CreatedAtAction(nameof(GetSubscriptionPlanById),new {id =result.Data},$"Plano {model.Name} criado com sucesso. " +
+                                                                                  $"Id: {result.Data}");
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateSubscriptionPlan(Guid id, UpdateSubscriptionPlanInputModel model)
         {
             var result = await _service.UpdateSubscriptionPlan(id,model);
-            if (result == null)
-                return NotFound();
-            return Ok();
+            if (!result.IsSuccess)
+                return NotFound(result);
+            return Ok(result);
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSubscriptionPlan(Guid id)
         {
             var result = await _service.DeleteSubscriptionPlan(id);
-            if (result == null)
-                return NotFound();
+            if (!result.IsSuccess)
+                return NotFound(result);
             return NoContent();
         }        
     }

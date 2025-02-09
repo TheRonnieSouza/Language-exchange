@@ -1,9 +1,6 @@
-using LanguageExchange.Application.Services.Language;
-using LanguageExchange.Application.Services.LanguageServices;
-using LanguageExchange.Application.Services.PaymentServices;
-using LanguageExchange.Application.Services.UserServices;
+using LanguageExchange.Application;
+using LanguageExchange.Infrastructure;
 using LanguageExchange.Infrastructure.Persistence;
-using LanguageExchange.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,14 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddSwaggerGen()
+        .ApplicationService()
+        .InfrastructureService();
 
-builder.Services.AddScoped<ILanguageService, LanguageService>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IPaymentService, PaymentService>();
+
+
 
 builder.Services.AddDbContext<LanguageExchangeDbContext>(options => options.UseInMemoryDatabase("LanguageExchangeDbContext"));
 //{

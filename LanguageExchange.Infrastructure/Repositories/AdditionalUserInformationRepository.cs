@@ -1,6 +1,7 @@
 ﻿using LanguageExchange.Core.Entities;
 using LanguageExchange.Core.RepositoriesInterfaces;
 using LanguageExchange.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace LanguageExchange.Infrastructure.Repositories
 {
@@ -12,9 +13,16 @@ namespace LanguageExchange.Infrastructure.Repositories
         {
             _context = context;
         }
-        public async Task<UserAdditionalInformation> GetAdditionalInformation(Guid Id)
+
+        public async Task<Guid> CreateAdditionalInformation(UserAdditionalInformation entity)
         {
-            var result = await _context.UserAdditionalInformations.FindAsync(Id);
+            await _context.UserAdditionalInformations.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return entity.Id;
+        }
+        public async Task<UserAdditionalInformation> GetAdditionalInformation(Guid id)
+        {
+            var result = await _context.UserAdditionalInformations.FirstOrDefaultAsync(ai => ai.UserId == id);
             return result;
         }
 

@@ -44,6 +44,10 @@ namespace LanguageExchange.Core.Entities
         //TODO - Implementar métodos
         public void RenewSubscription() { }
         public void CancelSubscription() { }
+        public void ActivateSubscription() 
+        {
+            Status = StatusSubscriptionEnum.Active;
+        }
 
         public void Update(Guid subscriptionPlanId, DateTime startDate, DateTime endDate, bool isRecurring, string paymentProviderSubscriptionId, StatusSubscriptionEnum status)
         { 

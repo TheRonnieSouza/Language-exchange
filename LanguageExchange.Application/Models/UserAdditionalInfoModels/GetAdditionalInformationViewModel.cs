@@ -5,9 +5,10 @@ namespace LanguageExchange.Application.Models.UserAdditionalInfoModels
 {
     public class GetAdditionalInformationViewModel
     {
-        public GetAdditionalInformationViewModel(Guid userId, string phone, DateTime birthDate, UserTypeEnum userType,
+        public GetAdditionalInformationViewModel(Guid id, Guid userId, string phone, DateTime birthDate, UserTypeEnum userType,
                                                 string gender, string profilePictureUrl, string socialMidiaUrl)
         {
+            Id = id;
             UserId = userId;
             Phone = phone;
             BirthDate = birthDate;
@@ -16,6 +17,7 @@ namespace LanguageExchange.Application.Models.UserAdditionalInfoModels
             ProfilePictureUrl = profilePictureUrl;
             SocialMidiaUrl = socialMidiaUrl;
         }
+        public Guid Id { get; private set; }
         public Guid UserId { get; private set; }
         public string Phone { get; private set; }
         public DateTime BirthDate { get; private set; }
@@ -24,7 +26,7 @@ namespace LanguageExchange.Application.Models.UserAdditionalInfoModels
         public string ProfilePictureUrl { get; private set; }
         public string SocialMidiaUrl { get; private set; }
         public static GetAdditionalInformationViewModel FromEntity(UserAdditionalInformation result) =>
-            new(result.UserId, result.Phone, result.BirthDate, 
+            new(result.Id, result.UserId, result.Phone, result.BirthDate, 
                 result.UserType, result.Gender, result.ProfilePictureUrl, result.SocialMidiaUrl);       
     }
 }

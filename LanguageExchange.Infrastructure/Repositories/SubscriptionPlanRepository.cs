@@ -13,15 +13,16 @@ namespace LanguageExchange.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<int> CreateSubscriptionPlan(SubscriptionPlan plan)
+        public async Task<Guid> CreateSubscriptionPlan(SubscriptionPlan plan)
         {
-            await _context.AddAsync(plan);
-            return await _context.SaveChangesAsync();
+            await _context.SubscriptionPlans.AddAsync(plan);
+            await _context.SaveChangesAsync();
+            return plan.Id;
         }
 
         public async Task<int> DeleteSubscriptionPlan(Guid id)
         {
-            var plan = await _context.SubscriptionPlans.FirstOrDefaultAsync(plan => plan.Id == id && !plan.IsActive);
+            var plan = await _context.SubscriptionPlans.FirstOrDefaultAsync(plan => plan.Id == id && plan.IsActive);
             plan.Desactivate();
                 _context.Update(plan);
             return await _context.SaveChangesAsync();

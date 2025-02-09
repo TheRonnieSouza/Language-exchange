@@ -22,18 +22,18 @@ namespace LanguageExchange.Application.Services.UserAddressServices
 
             return ResultViewModel<UserAddressViewModel>.Success(viewModel);
         }
-        public async Task<ResultViewModel<int>> CreateAddress(Guid userId, CreateUserAddressInputModel input)
+        public async Task<ResultViewModel<Guid>> CreateAddress(Guid userId, CreateUserAddressInputModel input)
         {
             var address = await _userAddressRepository.GetUserAddress(userId);
             if (address != null)
-                return ResultViewModel<int>.Error("Address already exist.");
+                return ResultViewModel<Guid>.Error($"Address already exist. Id {address.Id}");
 
             var userAddress = input.ToEntity(userId);
             var result = await _userAddressRepository.CreateUserAddress( userAddress);
             if (result == null)
-                return ResultViewModel<int>.Error($"Error to create address, user: {userId}.");            
+                return ResultViewModel<Guid>.Error($"Error to create address, user: {userId}.");            
 
-            return ResultViewModel<int>.Success(result);
+            return ResultViewModel<Guid>.Success(result);
         }
 
         public async Task<ResultViewModel<int>> UpdateAddress(Guid userId, UpdateUserAddressInputModel model)

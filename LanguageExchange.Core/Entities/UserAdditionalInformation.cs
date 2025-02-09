@@ -5,6 +5,17 @@ namespace LanguageExchange.Core.Entities
     public class UserAdditionalInformation
     {
         public UserAdditionalInformation() { }
+        public UserAdditionalInformation(Guid id, Guid userId, string phone, DateTime birthDate, UserTypeEnum userType, string gender = null, string profilePictureUrl = null, string socialMidiaUrl = null)
+        {
+            Id = id;
+            UserId = userId;
+            Phone = phone;
+            BirthDate = birthDate;
+            UserType = userType;
+            Gender = gender;
+            ProfilePictureUrl = profilePictureUrl;
+            SocialMidiaUrl = socialMidiaUrl;
+        }
         public UserAdditionalInformation(Guid userId, string phone, DateTime birthDate, UserTypeEnum userType, string gender = null, string profilePictureUrl = null, string socialMidiaUrl = null)
         {
             UserId = userId;

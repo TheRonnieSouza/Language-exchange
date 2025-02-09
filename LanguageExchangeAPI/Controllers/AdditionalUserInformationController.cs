@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LanguageExchangeAPI.Controllers
 {
     [ApiController]
-    [Route("api/users/{userId}/additional-info")]
+    [Route("api/users/additional-info")]
     public class AdditionalUserInformationController : ControllerBase
     {
         private readonly IAdditionalUserInformationService _additionalUserInformationService;
@@ -15,24 +15,34 @@ namespace LanguageExchangeAPI.Controllers
             _additionalUserInformationService = additionalUserInformationService;
         }
                
-        [HttpGet]
+        [HttpGet("{userId}")]
         public async Task<IActionResult> GetAdditionalInfo(Guid userId)
         {
             var result = await _additionalUserInformationService.GetAdditionalInformation(userId);
             if (!result.IsSuccess)
-                return NotFound(result.Message);
+                return NotFound(result);
 
-            return Ok(result.Data);
+            return Ok(result);
         }
                 
-        [HttpPut]
+        [HttpPut("{userId}")]
         public async Task<IActionResult> UpdateAdditionalInfo(Guid userId,[FromBody] UpdateAdditionalUserInformationInputModel input)
         {
             var result = await _additionalUserInformationService.UpdateAdditionalInformation(userId, input);
             if (!result.IsSuccess)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
-            return Ok();
+            return Ok(result);
+        }
+
+        [HttpPost("{userId}")]
+        public async Task<IActionResult> CreateAdditionalInfo(Guid userId, [FromBody] CreateAdditionalUserInformationInputModel input)
+        {
+            var result = await _additionalUserInformationService.CreateAdditionalInformation(userId, input);
+            if (!result.IsSuccess)
+                return BadRequest(result);
+          
+                return CreatedAtAction(nameof(GetAdditionalInfo), new { userId = userId }, $"Additional information created with success. Id: {result.Data} ");
         }
     }
 

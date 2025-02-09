@@ -13,10 +13,11 @@ namespace LanguageExchange.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<int> CreateUserAddress( UserAddress NewUserAddress)
+        public async Task<Guid> CreateUserAddress( UserAddress NewUserAddress)
         {
             await _context.UserAddress.AddAsync(NewUserAddress);
-           return await _context.SaveChangesAsync(); 
+            await _context.SaveChangesAsync();
+            return NewUserAddress.Id;
         }
 
         public async Task<int> DeleteUserAddress(Guid id)

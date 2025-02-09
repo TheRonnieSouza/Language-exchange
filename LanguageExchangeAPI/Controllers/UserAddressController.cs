@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LanguageExchangeAPI.Controllers
 {
-    [Route("api/userAddress")]
+    [Route("api/users/{userId}/user-address")]
     [ApiController]
     public class UserAddressController : ControllerBase
     {
@@ -20,9 +20,9 @@ namespace LanguageExchangeAPI.Controllers
         {
             var result = await _userAddressService.GetAddress(userId);
             if (!result.IsSuccess)
-                return NotFound(result.Message);
+                return NotFound(result);
 
-            return Ok(result.Data);
+            return Ok(result);
         }
 
         [HttpPost]
@@ -30,9 +30,9 @@ namespace LanguageExchangeAPI.Controllers
         {
             var result = await _userAddressService.CreateAddress(userId,input);
             if (!result.IsSuccess)
-                return BadRequest(result.Message);
-
-            return CreatedAtAction(nameof(GetAddress),  result);
+                return BadRequest(result);
+           
+            return CreatedAtAction(nameof(GetAddress), new { userId = userId, id = result.Data }, $"Endereço criado com sucesso. Id: {result.Data} ");
         }
 
         [HttpPut("{id}")]
@@ -42,7 +42,7 @@ namespace LanguageExchangeAPI.Controllers
             if (!result.IsSuccess)
                 return BadRequest(result.Message);
 
-            return Ok(result.Data);
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
@@ -50,7 +50,7 @@ namespace LanguageExchangeAPI.Controllers
         {
             var result = await _userAddressService.DeleteAddress(userId,id);
             if (!result.IsSuccess)
-                return BadRequest(result.Message);
+                return BadRequest(result);
 
             return NoContent();
         }
