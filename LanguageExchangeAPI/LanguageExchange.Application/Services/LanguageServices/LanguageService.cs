@@ -1,7 +1,7 @@
 ﻿using LanguageExchange.Application.Models;
 using LanguageExchange.Application.Models.LanguagesModels;
 using LanguageExchange.Application.Services.LanguageServices;
-using LanguageExchange.Infrastructure.Repositories;
+using LanguageExchange.Core.RepositoriesInterfaces;
 
 namespace LanguageExchange.Application.Services.Language
 {

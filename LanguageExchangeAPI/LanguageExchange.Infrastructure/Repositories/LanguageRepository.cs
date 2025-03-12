@@ -1,4 +1,5 @@
 ﻿using LanguageExchange.Core.Entities;
+using LanguageExchange.Core.RepositoriesInterfaces;
 using LanguageExchange.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
