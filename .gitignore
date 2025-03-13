@@ -400,3 +400,6 @@ FodyWeavers.xsd
 /LanguageExchangeAPI/appsettings.json
 /LanguageExchangeAPI/appsettings.Development.json
 /LanguageExchangeAPI/LanguageExchangeAPI.http
+/LanguageExchange - methods.plantuml
+*.plantuml
+*.png

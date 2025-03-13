@@ -14,10 +14,9 @@ builder.Services.AddSwaggerGen()
         .ApplicationService()
         .InfrastructureService();
 
-
-
-
-builder.Services.AddDbContext<LanguageExchangeDbContext>(options => options.UseInMemoryDatabase("LanguageExchangeDbContext"));
+var connectionString = builder.Configuration.GetConnectionString("LanguageExchangeDb");
+builder.Services.AddDbContext<LanguageExchangeDbContext>(options => options.UseSqlServer(connectionString));
+//builder.Services.AddDbContext<LanguageExchangeDbContext>(options => options.UseInMemoryDatabase("LanguageExchangeDbContext"));
 //{
 //    options.UseInMemoryDatabase("LanguageExchangeDbContext");
 //   // options.UseSqlServer(builder.Configuration.GetConnectionString("LanguageExchangeDbContext"));
