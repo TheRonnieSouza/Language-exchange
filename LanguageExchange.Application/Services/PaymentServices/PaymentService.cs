@@ -1,7 +1,7 @@
 ﻿using LanguageExchange.Application.Models;
 using LanguageExchange.Application.Models.PaymentModels;
 using LanguageExchange.Application.Models.PaymentModelsModels;
-using LanguageExchange.Infrastructure.Repositories;
+using LanguageExchange.Core.RepositoriesInterfaces;
 
 namespace LanguageExchange.Application.Services.PaymentServices
 {
@@ -16,14 +16,14 @@ namespace LanguageExchange.Application.Services.PaymentServices
         {
             var payment = paymentModel.ToEntity();
 
-            int id = await _paymentRepository.Add(payment);
+            string id = await _paymentRepository.Add(payment);
 
-            if(id == 0) 
+            if(string.IsNullOrEmpty(id)) 
                 return ResultViewModel.Error("Error creating payment");
 
-            return ResultViewModel<int>.Success(id);
+            return ResultViewModel<string>.Success(id);
         }
-        public async Task<ResultViewModel> CancelPayment(int id, CancelPaymentInputModel paymentModel)
+        public async Task<ResultViewModel> CancelPayment(string id, CancelPaymentInputModel paymentModel)
         {
             var result = await _paymentRepository.Cancel(id);
 
@@ -32,7 +32,7 @@ namespace LanguageExchange.Application.Services.PaymentServices
 
             return ResultViewModel<bool>.Success(result);
         }
-        public async Task<ResultViewModel<GetPaymentViewModel>> GetPaymentStatus(int UserId, int PaymentId)
+        public async Task<ResultViewModel<GetPaymentViewModel>> GetPaymentStatus(string UserId, string PaymentId)
         {
             var payment = await _paymentRepository.GetPayment(UserId, PaymentId);
 

@@ -5,8 +5,8 @@ namespace LanguageExchange.Application.Services.LanguageServices
 {
     public interface ILanguageService
     {
-        Task<ResultViewModel<int>> AddLanguage(CreateLanguageInputModel languageModel);
-        Task<ResultViewModel> DeleteLanguage(int id);
+        Task<ResultViewModel<string>> AddLanguage(CreateLanguageInputModel languageModel);
+        Task<ResultViewModel> DeleteLanguage(string id);
         Task<ResultViewModel<IList<GetAllLanguageViewModel>>> GetAllLanguages();
     }
 }

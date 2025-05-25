@@ -39,7 +39,7 @@ namespace LanguageExchange.Core.Entities
 
         public User User { get; private set; } 
         public SubscriptionPlan SubscriptionPlan { get; private set; } 
-        public ICollection<PaymentTransaction> PaymentTransactions { get; private set; } = new List<PaymentTransaction>();
+        public ICollection<Payment> PaymentTransactions { get; private set; } = new List<Payment>();
 
         //TODO - Implementar métodos
         public void RenewSubscription() { }

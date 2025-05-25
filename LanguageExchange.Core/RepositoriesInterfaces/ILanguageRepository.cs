@@ -4,8 +4,8 @@ namespace LanguageExchange.Core.RepositoriesInterfaces
 {
     public interface ILanguageRepository
     {
-        public Task<int> Add(Language language);
-        public Task<bool> Delete(int id);
+        public Task<string> Add(Language language);
+        public Task<bool> Delete(string id);
         public Task<IList<Language>> GetAll();
     }
 }

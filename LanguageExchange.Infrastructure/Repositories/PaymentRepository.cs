@@ -1,4 +1,5 @@
 ﻿using LanguageExchange.Core.Entities;
+using LanguageExchange.Core.RepositoriesInterfaces;
 using LanguageExchange.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,24 +12,24 @@ namespace LanguageExchange.Infrastructure.Repositories
         {
             _context = context;
         }
-        public async Task<int> Add(Payment payment)
+        public async Task<string> Add(Payment payment)
         {
-            _context.Payments.Add(payment);
+            _context.PaymentTransactions.Add(payment);
             await _context.SaveChangesAsync();
-            return payment.Id;
+            return payment.Id.ToString();
         }
 
-        public async Task<bool> Cancel(int id)
+        public async Task<bool> Cancel(string id)
         {
-            var payment = await _context.Payments.FindAsync(id);
-            payment.Cancel();
+            var payment = await _context.PaymentTransactions.FindAsync(id);
+            payment.MarkFailed();
             await _context.SaveChangesAsync();
-            return payment.IsCanceled;
+            return payment.IsSuccessful();
         }
 
-        public async Task<Payment> GetPayment(int UserId, int PaymentId)
+        public async Task<Payment> GetPayment(string UserId, string PaymentId)
         {
-            var result = await _context.Payments.FirstOrDefaultAsync(x => x.UserId == UserId && x.Id == PaymentId);
+            var result = await _context.PaymentTransactions.FirstOrDefaultAsync(x => x.UserId.ToString() == UserId && x.Id.ToString() == PaymentId);
 
             if(result == null)
             {

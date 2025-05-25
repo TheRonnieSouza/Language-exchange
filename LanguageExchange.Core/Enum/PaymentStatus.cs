@@ -1,6 +1,6 @@
 ﻿namespace LanguageExchange.Core.Enum
 {
-    public enum PaymentStatusEnum
+    public enum PaymentStatus
     {
         Pending,
         Failed,

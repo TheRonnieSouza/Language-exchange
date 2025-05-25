@@ -13,7 +13,7 @@ namespace LanguageExchange.Infrastructure.Persistence
         public DbSet<UserAdditionalInformation> UserAdditionalInformations { get; set; }
         public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
-        public DbSet<PaymentTransaction> PaymentTransactions { get; set; }
+        public DbSet<Payment> PaymentTransactions { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<SubscriptionPlan> SubscriptionPlans { get; set; }
         public DbSet<Notification> Notifications { get; set; }
@@ -28,7 +28,7 @@ namespace LanguageExchange.Infrastructure.Persistence
             builder.Entity<Notification>().HasKey(n=> n.Id);
 
             builder.Entity<PaymentMethod>().HasKey(p => p.Id);
-            builder.Entity<PaymentTransaction>().HasKey(p => p.Id);
+            builder.Entity<Payment>().HasKey(p => p.Id);
 
             builder.Entity<Subscription>().HasKey(s => s.Id);
             builder.Entity<SubscriptionPlan>().HasKey(s => s.Id);
@@ -72,13 +72,13 @@ namespace LanguageExchange.Infrastructure.Persistence
                 .HasForeignKey(pr => pr.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<PaymentTransaction>()
+            builder.Entity<Payment>()
                 .HasOne(pt => pt.User)
                 .WithMany(u => u.PaymentTransactions)
                 .HasForeignKey(pr => pr.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<PaymentTransaction>()
+            builder.Entity<Payment>()
                 .HasOne(pt => pt.Subscription)
                 .WithMany(s => s.PaymentTransactions)
                 .HasForeignKey(pt => pt.SubscriptionId)

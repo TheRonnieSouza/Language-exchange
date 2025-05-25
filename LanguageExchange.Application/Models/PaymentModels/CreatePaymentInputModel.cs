@@ -5,7 +5,7 @@ namespace LanguageExchange.Application.Models.PaymentModelsModels
 {
     public class CreatePaymentInputModel
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public Subscription Subscription{ get; set; }
         public decimal Amount { get; set; } 
         public PaymentMethodEnum Method { get; set;}

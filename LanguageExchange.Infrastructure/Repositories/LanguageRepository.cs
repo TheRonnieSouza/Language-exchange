@@ -1,4 +1,5 @@
 ﻿using LanguageExchange.Core.Entities;
+using LanguageExchange.Core.RepositoriesInterfaces;
 using LanguageExchange.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,14 +13,14 @@ namespace LanguageExchange.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<int> Add(Language language)
+        public async Task<string> Add(Language language)
         {
             _context.Languages.Add(language);
             await _context.SaveChangesAsync();
             return language.Id;
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> Delete(string id)
         {
             var language = await _context.Languages.FindAsync(id);
             if (language == null)
@@ -33,6 +34,6 @@ namespace LanguageExchange.Infrastructure.Repositories
         public async Task<IList<Language>> GetAll()
         {
             return await _context.Languages.Where(l => l.isActive == true).ToListAsync();//await _context.Languages.ToListAsync();            
-        }
+        }        
     }
 }

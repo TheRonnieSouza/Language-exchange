@@ -4,8 +4,8 @@ namespace LanguageExchange.Core.RepositoriesInterfaces
 {
     public interface IPaymentRepository
     {
-        public Task<int> Add(Payment payment);
-        public Task<bool> Cancel(int id);
-        public Task<Payment> GetPayment(int UserId, int PaymentId);
+        public Task<string> Add(Payment payment);
+        public Task<bool> Cancel(string id);
+        public Task<Payment> GetPayment(string UserId, string PaymentId);
     }
 }

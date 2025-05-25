@@ -23,7 +23,7 @@
         public ICollection<PasswordResetToken> PasswordResetTokens { get; private set; } = new List<PasswordResetToken>();
         public ICollection<Notification> Notifications { get; private set; } = new List<Notification>();
 
-        public ICollection<PaymentTransaction> PaymentTransactions { get; private set; } = new List<PaymentTransaction>();
+        public ICollection<Payment> PaymentTransactions { get; private set; } = new List<Payment>();
                 
         public bool Authenticate(string currentPassword)
         { 

@@ -31,7 +31,7 @@ namespace LanguageExchangeAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLanguage(int id)
+        public async Task<IActionResult> DeleteLanguage(string id)
         {
             var result = await _languageService.DeleteLanguage(id);
 

@@ -24,7 +24,7 @@ namespace LanguageExchangeAPI.Controllers
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> CancelPayment(int id, CancelPaymentInputModel payment)
+        public async Task<IActionResult> CancelPayment(string id, CancelPaymentInputModel payment)
         {
             var result = await _paymentService.CancelPayment(id, payment);
 
@@ -32,7 +32,7 @@ namespace LanguageExchangeAPI.Controllers
         }
 
         [HttpGet("{userId}/{paymentId}")]
-        public async Task<IActionResult> GetPaymentStatus(int userId, int paymentId)
+        public async Task<IActionResult> GetPaymentStatus(string userId, string paymentId)
         {
             var result = await _paymentService.GetPaymentStatus(userId, paymentId);
 

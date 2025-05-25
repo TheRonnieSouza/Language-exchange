@@ -6,7 +6,9 @@
         {
             NameOfLanguage = nameOfLanguage;
         }
-        public int Id { get; private set; }
+        public string Id => _id.ToString();
+
+        private Guid _id = Guid.NewGuid();
         public string NameOfLanguage { get; private set; } 
 
         public bool isActive { get; private set; } = true;

@@ -1,4 +1,5 @@
-﻿using LanguageExchange.Application.Models.UserServices;
+﻿using LanguageExchange.Application.Models.ChangePasswordModels;
+using LanguageExchange.Application.Models.UserServices;
 using LanguageExchange.Application.Services.UserServices;
 using Microsoft.AspNetCore.Mvc;
 

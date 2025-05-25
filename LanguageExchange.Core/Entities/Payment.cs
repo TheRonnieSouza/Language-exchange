@@ -2,19 +2,36 @@
 
 namespace LanguageExchange.Core.Entities
 {
-    public class PaymentTransaction
+    public class Payment
     {
-        public PaymentTransaction(Guid userId, Guid subscriptionId, decimal amount, string currency, string providerTransactionId)
+        public Payment(string userId, string subscriptionId, decimal amount, string currency, string providerTransactionId)
         {
             Id = Guid.NewGuid();
-            UserId = userId;
-            SubscriptionId = subscriptionId;
+            UserId = Guid.Parse(userId);
+            SubscriptionId = Guid.Parse(subscriptionId);
             Amount = amount;
             Currency = currency;
             ProviderTransactionId = providerTransactionId;
             TransactionDate = DateTime.UtcNow;
-            Status = PaymentStatusEnum.Pending; 
+            Status = PaymentStatus.Pending; 
         }
+
+        public Payment(string userId, decimal amount,PaymentMethodEnum method)
+        {
+            UserId = Guid.Parse(userId);
+            Method = method;
+            Amount = amount;
+        }
+
+        public Payment(string userId, decimal amount, DateTime transactionDate, PaymentMethodEnum method, PaymentStatus status)
+        {
+            UserId = Guid.Parse(userId);
+            TransactionDate = transactionDate;
+            Amount = amount;
+            Method = method;
+            Status = status;
+        }
+
         public Guid Id { get; private set; } = Guid.NewGuid();
         public Guid UserId { get; private set; }
         public Guid SubscriptionId { get; private set; }
@@ -22,7 +39,9 @@ namespace LanguageExchange.Core.Entities
         public string Currency { get; private set; }
         public DateTime TransactionDate { get; private set; }
         public string ProviderTransactionId { get; private set; }
-        public PaymentStatusEnum Status { get; private set; }
+        public PaymentStatus Status { get; private set; }
+
+        public PaymentMethodEnum Method { get; private set; }
         public User User { get; private set; }
         public Subscription Subscription { get; private set; }
 
@@ -31,7 +50,7 @@ namespace LanguageExchange.Core.Entities
         /// </summary>
         public void MarkSuccessful()
         {
-            Status = PaymentStatusEnum.Successful;
+            Status = PaymentStatus.Successful;
             TransactionDate = DateTime.UtcNow;            
         }
 
@@ -40,7 +59,7 @@ namespace LanguageExchange.Core.Entities
         /// </summary>
         public void MarkFailed()
         {
-            Status = PaymentStatusEnum.Failed;
+            Status = PaymentStatus.Failed;
             TransactionDate = DateTime.UtcNow;
             // Adicione lógica adicional, como registrar mensagens de erro, se necessário.
         }
@@ -49,7 +68,7 @@ namespace LanguageExchange.Core.Entities
         /// </summary>
         public void MarkRefund()
         {
-            Status = PaymentStatusEnum.Refunded;
+            Status = PaymentStatus.Refunded;
             TransactionDate = DateTime.UtcNow;            
         }
 
@@ -58,9 +77,9 @@ namespace LanguageExchange.Core.Entities
         /// </summary>
         public void Retry()
         {
-            if (Status != PaymentStatusEnum.Successful)
+            if (Status != PaymentStatus.Successful)
             {
-                Status = PaymentStatusEnum.Pending;
+                Status = PaymentStatus.Pending;
                 TransactionDate = DateTime.UtcNow;                
             }            
         }
@@ -71,7 +90,7 @@ namespace LanguageExchange.Core.Entities
         /// <returns>True se o status for "Successful"; caso contrário, false.</returns>
         public bool IsSuccessful()
         {
-            return Status == PaymentStatusEnum.Successful ? true : false;
+            return Status == PaymentStatus.Successful ? true : false;
         }
     }
 }

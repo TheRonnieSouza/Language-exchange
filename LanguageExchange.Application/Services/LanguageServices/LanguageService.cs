@@ -1,7 +1,7 @@
 ﻿using LanguageExchange.Application.Models;
 using LanguageExchange.Application.Models.LanguagesModels;
 using LanguageExchange.Application.Services.LanguageServices;
-using LanguageExchange.Infrastructure.Repositories;
+using LanguageExchange.Core.RepositoriesInterfaces;
 
 namespace LanguageExchange.Application.Services.Language
 {
@@ -13,11 +13,11 @@ namespace LanguageExchange.Application.Services.Language
             _languageRepository = languageRepository;
         }
        
-        public async Task<ResultViewModel> DeleteLanguage(int id)
+        public async Task<ResultViewModel> DeleteLanguage(string id)
         {
             var result = await _languageRepository.Delete(id);
 
-            return ResultViewModel<int>.Success(id);
+            return ResultViewModel<string>.Success(id);
         }       
 
         public async Task<ResultViewModel<IList<GetAllLanguageViewModel>>> GetAllLanguages()
@@ -30,13 +30,13 @@ namespace LanguageExchange.Application.Services.Language
             return  result;
         }
 
-        public async Task<ResultViewModel<int>> AddLanguage(CreateLanguageInputModel languageModel)
+        public async Task<ResultViewModel<string>> AddLanguage(CreateLanguageInputModel languageModel)
         {
             var language = languageModel.ToEntity();
 
-            int id = await _languageRepository.Add(language);
+            string id = await _languageRepository.Add(language);
 
-            return ResultViewModel<int>.Success(id);
+            return ResultViewModel<string>.Success(id);
         }
     }
 }
